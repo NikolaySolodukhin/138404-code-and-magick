@@ -38,7 +38,7 @@ window.renderStatistics = function (ctx, names, times) {
     return Math.ceil(time / maxResult * heightHisto);
   });
 
-  for (let i = 0; i < histoSizes.length; i++) {
+  for (var i = 0; i < histoSizes.length; i++) {
     ctx.fillStyle = names[i] === 'Вы' ? 'rgba(255, 0, 0, 1.0)' : 'rgba(0, 0, ' + Math.ceil(Math.random() * 255) + ', 1.0)';
     ctx.fillRect(paddingX + (widthHisto + betweenHisto) * i, paddingYBottom - histoSizes[i], widthHisto, histoSizes[i]);
     ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
