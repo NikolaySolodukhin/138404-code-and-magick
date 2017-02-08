@@ -1,33 +1,13 @@
 'use strict';
 
-var inputName = document.querySelector('.setup-user-name');
+var setup = document.querySelector('.setup');
+var openPopupChar = document.querySelector('.setup-open');
+var closePopupChar = setup.querySelector('.setup-close');
+var inputName = setup.querySelector('.setup-user-name');
 
 inputName.setAttribute('required', true);
 inputName.setAttribute('maxLength', 50);
 inputName.setAttribute('minLength', 2);
-inputName.setAttribute('tabindex', 2);
-
-var setup = document.querySelector('.setup');
-var setupSubmit = setup.querySelector('.setup-submit');
-var openPopupChar = document.querySelector('.setup-open');
-var openPopupImg = openPopupChar.querySelector('.setup-open-icon');
-var closePopupChar = setup.querySelector('.setup-close');
-
-setup.setAttribute('role', 'dialog');
-
-closePopupChar.setAttribute('tabindex', 3);
-closePopupChar.setAttribute('role', 'button');
-
-openPopupImg.setAttribute('tabindex', 1);
-openPopupImg.setAttribute('role', 'button');
-
-setupSubmit.setAttribute('tabindex', 4);
-
-var wizardCoat = document.getElementById('wizard-coat');
-var wizardEyes = document.getElementById('wizard-eyes');
-
-var fireball = document.querySelector('.setup-fireball-wrap');
-
 
 var KEY_CODE = {
   'enter': 13,
@@ -44,87 +24,71 @@ var setupKeydownHandler = function (evt) {
   }
 };
 
-var ariaPressedChange = function () {
-  if (setup.classList.contains('invisible')) {
-    setupSubmit.attributes['aria-pressed'] = false;
-    openPopupImg.attributes['aria-pressed'] = false;
-    closePopupChar.attributes['aria-pressed'] = false;
-  } else {
-    setupSubmit.attributes['aria-pressed'] = true;
-    openPopupImg.attributes['aria-pressed'] = true;
-    closePopupChar.attributes['aria-pressed'] = true;
+var ariaPressedChange = function (element) {
+  var pressed = (element.getAttribute('aria-pressed') === 'true');
+  if (!pressed) {
+    element.setAttribute('aria-pressed', !pressed);
   }
 };
 
 var showSetupElement = function () {
   setup.classList.remove('invisible');
   document.addEventListener('keydown', setupKeydownHandler);
-  ariaPressedChange();
 };
 
 var hideSetupElement = function () {
   setup.classList.add('invisible');
   document.removeEventListener('keydown', setupKeydownHandler);
-  ariaPressedChange();
 };
 
 openPopupChar.addEventListener('click', function () {
   showSetupElement();
+  ariaPressedChange(openPopupChar);
 });
 
 closePopupChar.addEventListener('click', function () {
   hideSetupElement();
+  ariaPressedChange(closePopupChar);
 });
 
 openPopupChar.addEventListener('keydown', function (evt) {
   if (isActivateEvent(evt)) {
     showSetupElement();
+    ariaPressedChange(openPopupChar);
   }
 });
 
 closePopupChar.addEventListener('keydown', function (evt) {
   if (isActivateEvent(evt)) {
     hideSetupElement();
+    ariaPressedChange(closePopupChar);
   }
 });
 
-var wizardCoatColors = [
-  'rgb(101, 137, 164)',
-  'rgb(241, 43, 107)',
-  'rgb(146, 100, 161)',
-  'rgb(56, 159, 117)',
-  'rgb(215, 210, 55)',
-  'rgb(0, 0, 0)'
-];
+window.colorizeElement(document.getElementById('wizard-coat'),
+    ['#ee4830',
+      '#30a8ee',
+      '#5ce6c0',
+      '#e848d5',
+      '#e6e848',
+      '#e6e848'],
+    'fill'
+);
 
-var wizardEyesColors = [
-  'black',
-  'red',
-  'blue',
-  'yellow',
-  'green'
-];
+window.colorizeElement(document.getElementById('wizard-eyes'),
+    ['black',
+      'red',
+      'blue',
+      'yellow',
+      'green'],
+    'fill'
+);
 
-var fireballWrapColors = [
-  '#ee4830',
-  '#30a8ee',
-  '#5ce6c0',
-  '#e848d5',
-  '#e6e848'
-];
-
-function randomArrElem(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-wizardCoat.addEventListener('click', function () {
-  wizardCoat.style.fill = randomArrElem(wizardCoatColors);
-});
-
-wizardEyes.addEventListener('click', function () {
-  wizardEyes.style.fill = randomArrElem(wizardEyesColors);
-});
-
-fireball.addEventListener('click', function () {
-  fireball.style.backgroundColor = randomArrElem(fireballWrapColors);
-});
+window.colorizeElement(document.querySelector('.setup-fireball-wrap'),
+    ['#ee4830',
+      '#30a8ee',
+      '#5ce6c0',
+      '#e848d5',
+      '#e6e848'],
+    'backgroundColor'
+);
