@@ -13,6 +13,4 @@
   };
 
   setupOpen.addEventListener('keydown', onSetupKeydown);
-
-  focusOpenButton();
 })();

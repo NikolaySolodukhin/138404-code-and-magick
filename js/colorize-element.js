@@ -10,18 +10,19 @@ window.getColorElement = function (element, colors, property, callback) {
     var nums = /(.*?)rgb\((\d+),\s*(\d+),\s*(\d+)\)/i.exec(color);
     if (!nums) {
       return color;
-    }
+    } else {
 
-    var R = parseInt(nums[2], 10).toString(16);
-    var G = parseInt(nums[3], 10).toString(16);
-    var B = parseInt(nums[4], 10).toString(16);
+      var R = parseInt(nums[2], 10).toString(16);
+      var G = parseInt(nums[3], 10).toString(16);
+      var B = parseInt(nums[4], 10).toString(16);
 
-    return '#' + (
+      color = '#' + (
         (R.length === 1 ? '0' + R : R) +
         (G.length === 1 ? '0' + G : G) +
         (B.length === 1 ? '0' + B : B)
       );
+      return color;
+    }
   };
-
   return callback(getRandomColor(), property);
 };

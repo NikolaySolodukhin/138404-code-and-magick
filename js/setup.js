@@ -23,11 +23,12 @@ window.settings = (function () {
     isKeyboardEvent: isKeyboardEvent,
     KEY_CODE: KEY_CODE,
 
-    ariaPressedChange: function (element) {
-      if (element.getAttribute('aria-pressed') === 'true') {
-        element.setAttribute('aria-pressed', !true);
+    toggleAria: function (elem, attribute) {
+      var attribValue = elem.getAttribute(attribute);
+      if (attribValue === 'false') {
+        elem.setAttribute(attribute, 'true');
       } else {
-        element.setAttribute('aria-pressed', true);
+        elem.setAttribute(attribute, 'false');
       }
     },
   };
@@ -37,6 +38,7 @@ window.enableSetup = (function () {
 
   var setup = document.querySelector('.setup');
   var openPopupChar = document.querySelector('.setup-open');
+  var setupOpen = openPopupChar.querySelector('.setup-open-icon');
   var closePopupChar = setup.querySelector('.setup-close');
   var onSetupClose = null;
 
@@ -49,11 +51,17 @@ window.enableSetup = (function () {
   var showSetupElement = function () {
     setup.classList.remove('invisible');
     document.addEventListener('keydown', setupKeydownHandler);
+    window.settings.toggleAria(setupOpen, 'aria-hidden');
+    window.settings.toggleAria(setupOpen, 'aria-pressed');
+    window.settings.toggleAria(setup, 'aria-hidden');
   };
 
   var hideSetupElement = function () {
     setup.classList.add('invisible');
     document.removeEventListener('keydown', setupKeydownHandler);
+    window.settings.toggleAria(setupOpen, 'aria-hidden');
+    window.settings.toggleAria(closePopupChar, 'aria-pressed');
+    window.settings.toggleAria(setup, 'aria-hidden');
     if (typeof onSetupClose === 'function') {
       onSetupClose();
     }
@@ -61,30 +69,26 @@ window.enableSetup = (function () {
 
   openPopupChar.addEventListener('click', function () {
     showSetupElement();
-    window.settings.ariaPressedChange(openPopupChar);
   });
 
   closePopupChar.addEventListener('click', function () {
     hideSetupElement();
-    window.settings.ariaPressedChange(closePopupChar);
   });
 
   openPopupChar.addEventListener('keydown', function (evt) {
     if (window.settings.isActivationEvent(evt)) {
       showSetupElement();
-      window.settings.ariaPressedChange(openPopupChar);
     }
   });
 
   closePopupChar.addEventListener('keydown', function (evt) {
     if (window.settings.isActivationEvent(evt)) {
       hideSetupElement();
-      window.settings.ariaPressedChange(closePopupChar);
     }
   });
 
   var onKeyDown = function (evt) {
-    if (window.utils.isActivationEvent(evt)) {
+    if (window.settings.isActivationEvent(evt)) {
       hideSetupElement();
     }
   };
@@ -117,8 +121,8 @@ window.changeWizardSetup = (function () {
     'yellow',
     'green'];
 
-  var giveAriaPressedChange = function (evt) {
-    return window.settings.ariaPressedChange(evt.currentTarget);
+  var givetoggleAria = function (evt) {
+    return window.settings.toggleAria(evt.currentTarget, 'aria-pressed');
   };
 
   var giveColorAndProperty = function (evt) {
@@ -129,56 +133,51 @@ window.changeWizardSetup = (function () {
 
   wizardCoat.addEventListener('keydown', function (evt) {
     if (window.settings.isActivationEvent(evt)) {
-      giveAriaPressedChange(evt);
-      window.getColorElement(evt.currentTarget,
-          CoatAndFireballColors,
-          'fill',
-          giveColorAndProperty(evt));
+      givetoggleAria(evt);
+      addColorWizardCoat(evt);
     }
   });
 
   wizardCoat.addEventListener('click', function (evt) {
-    giveAriaPressedChange(evt);
-    window.getColorElement(evt.currentTarget,
-        CoatAndFireballColors,
-        'fill',
-        giveColorAndProperty(evt));
+    givetoggleAria(evt);
+    addColorWizardCoat(evt);
   });
 
 
   fireball.addEventListener('keydown', function (evt) {
-    giveAriaPressedChange(evt);
+    givetoggleAria(evt);
     if (window.settings.isActivationEvent(evt)) {
-      window.getColorElement(evt.currentTarget,
-          CoatAndFireballColors,
-          'backgroundColor',
-          giveColorAndProperty(evt));
+      addColorWizardCoat(evt);
     }
   });
 
   fireball.addEventListener('click', function (evt) {
-    giveAriaPressedChange(evt);
-    window.getColorElement(evt.currentTarget,
-        CoatAndFireballColors,
-        'backgroundColor',
-        giveColorAndProperty(evt));
+    givetoggleAria(evt);
+    addColorFireball(evt);
   });
 
   wizardEyes.addEventListener('keydown', function (evt) {
-    giveAriaPressedChange(evt);
+    givetoggleAria(evt);
     if (window.settings.isActivationEvent(evt)) {
-      window.getColorElement(evt.currentTarget,
-          colorsEyes,
-          'fill',
-          giveColorAndProperty(evt));
+      addColorEyes(evt);
     }
   });
 
   wizardEyes.addEventListener('click', function (evt) {
-    giveAriaPressedChange(evt);
-    window.getColorElement(evt.currentTarget,
-        colorsEyes,
-        'fill',
-        giveColorAndProperty(evt));
+    givetoggleAria(evt);
+    addColorEyes(evt);
   });
+
+  var addColorWizardCoat = function (evt) {
+    return window.getColorElement(evt.currentTarget, CoatAndFireballColors, evt.target.style[0], giveColorAndProperty(evt));
+  };
+
+  var addColorFireball = function (evt) {
+    return window.getColorElement(evt.currentTarget, CoatAndFireballColors, 'backgroundColor', giveColorAndProperty(evt));
+  };
+
+  var addColorEyes = function (evt) {
+    return window.getColorElement(evt.currentTarget, colorsEyes, 'fill', giveColorAndProperty(evt));
+  };
+
 })();
