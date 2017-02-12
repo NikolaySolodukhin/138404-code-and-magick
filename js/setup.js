@@ -1,41 +1,47 @@
 'use strict';
 
-window.setup = (function () {
+window.settings = (function () {
 
   var KEY_CODE = {
-    'enter': 13
+    'enter': 13,
+    'escape': 27
+  };
+
+  var isKeyboardEvent = function (evt) {
+    return typeof evt.keyCode !== 'undefined';
   };
 
   return {
+    isDeactivationEvent: function (evt) {
+      return isKeyboardEvent(evt) && evt.keyCode === KEY_CODE.escape;
+    },
+
+    isActivationEvent: function (evt) {
+      return isKeyboardEvent(evt) && evt.keyCode === KEY_CODE.enter;
+    },
+
+    isKeyboardEvent: isKeyboardEvent,
+    KEY_CODE: KEY_CODE,
+
     ariaPressedChange: function (element) {
-      var pressed = (element.getAttribute('aria-pressed') === 'true');
-      if (!pressed) {
-        element.setAttribute('aria-pressed', !pressed);
+      if (element.getAttribute('aria-pressed') === 'true') {
+        element.setAttribute('aria-pressed', !true);
+      } else {
+        element.setAttribute('aria-pressed', true);
       }
     },
-    isActivateEvent: function (evt) {
-      return evt.keyCode && evt.keyCode === KEY_CODE.enter;
-    }
   };
 })();
 
-(function () {
+window.enableSetup = (function () {
 
   var setup = document.querySelector('.setup');
   var openPopupChar = document.querySelector('.setup-open');
   var closePopupChar = setup.querySelector('.setup-close');
-  var inputName = setup.querySelector('.setup-user-name');
-
-  inputName.setAttribute('required', true);
-  inputName.setAttribute('maxLength', 50);
-  inputName.setAttribute('minLength', 2);
-
-  var KEY_CODE = {
-    'escape': 27
-  };
+  var onSetupClose = null;
 
   var setupKeydownHandler = function (evt) {
-    if (evt.keyCode === KEY_CODE.escape) {
+    if (window.settings.isDeactivationEvent(evt)) {
       setup.classList.add('invisible');
     }
   };
@@ -48,57 +54,131 @@ window.setup = (function () {
   var hideSetupElement = function () {
     setup.classList.add('invisible');
     document.removeEventListener('keydown', setupKeydownHandler);
+    if (typeof onSetupClose === 'function') {
+      onSetupClose();
+    }
   };
 
   openPopupChar.addEventListener('click', function () {
     showSetupElement();
-    window.setup.ariaPressedChange(openPopupChar);
+    window.settings.ariaPressedChange(openPopupChar);
   });
 
   closePopupChar.addEventListener('click', function () {
     hideSetupElement();
-    window.setup.ariaPressedChange(closePopupChar);
+    window.settings.ariaPressedChange(closePopupChar);
   });
 
   openPopupChar.addEventListener('keydown', function (evt) {
-    if (window.setup.isActivateEvent(evt)) {
+    if (window.settings.isActivationEvent(evt)) {
       showSetupElement();
-      window.setup.ariaPressedChange(openPopupChar);
+      window.settings.ariaPressedChange(openPopupChar);
     }
   });
 
   closePopupChar.addEventListener('keydown', function (evt) {
-    if (window.setup.isActivateEvent(evt)) {
+    if (window.settings.isActivationEvent(evt)) {
       hideSetupElement();
-      window.setup.ariaPressedChange(closePopupChar);
+      window.settings.ariaPressedChange(closePopupChar);
     }
   });
 
-  window.getColorElement.colorizeElement(document.getElementById('wizard-coat'),
+  var onKeyDown = function (evt) {
+    if (window.utils.isActivationEvent(evt)) {
+      hideSetupElement();
+    }
+  };
+
+  return function (cb) {
+    showSetupElement();
+    closePopupChar.addEventListener('keydown', onKeyDown);
+
+    onSetupClose = cb;
+  };
+
+})();
+
+window.changeWizardSetup = (function () {
+
+  var wizardCoat = document.getElementById('wizard-coat');
+  var wizardEyes = document.getElementById('wizard-eyes');
+  var fireball = document.querySelector('.setup-fireball-wrap');
+
+  var CoatAndFireballColors =
     ['#ee4830',
       '#30a8ee',
       '#5ce6c0',
       '#e848d5',
-      '#e6e848',
-      '#e6e848'],
-      'fill'
-);
+      '#e6e848'];
 
-  window.getColorElement.colorizeElement(document.getElementById('wizard-eyes'),
-    ['black',
-      'red',
-      'blue',
-      'yellow',
-      'green'],
-      'fill'
-);
+  var colorsEyes = ['black',
+    'red',
+    'blue',
+    'yellow',
+    'green'];
 
-  window.getColorElement.colorizeElement(document.querySelector('.setup-fireball-wrap'),
-    ['#ee4830',
-      '#30a8ee',
-      '#5ce6c0',
-      '#e848d5',
-      '#e6e848'],
-      'backgroundColor'
-);
+  var giveAriaPressedChange = function (evt) {
+    return window.settings.ariaPressedChange(evt.currentTarget);
+  };
+
+  var giveColorAndProperty = function (evt) {
+    return function (colors, property) {
+      evt.currentTarget.style[property] = colors;
+    };
+  };
+
+  wizardCoat.addEventListener('keydown', function (evt) {
+    if (window.settings.isActivationEvent(evt)) {
+      giveAriaPressedChange(evt);
+      window.getColorElement(evt.currentTarget,
+          CoatAndFireballColors,
+          'fill',
+          giveColorAndProperty(evt));
+    }
+  });
+
+  wizardCoat.addEventListener('click', function (evt) {
+    giveAriaPressedChange(evt);
+    window.getColorElement(evt.currentTarget,
+        CoatAndFireballColors,
+        'fill',
+        giveColorAndProperty(evt));
+  });
+
+
+  fireball.addEventListener('keydown', function (evt) {
+    giveAriaPressedChange(evt);
+    if (window.settings.isActivationEvent(evt)) {
+      window.getColorElement(evt.currentTarget,
+          CoatAndFireballColors,
+          'backgroundColor',
+          giveColorAndProperty(evt));
+    }
+  });
+
+  fireball.addEventListener('click', function (evt) {
+    giveAriaPressedChange(evt);
+    window.getColorElement(evt.currentTarget,
+        CoatAndFireballColors,
+        'backgroundColor',
+        giveColorAndProperty(evt));
+  });
+
+  wizardEyes.addEventListener('keydown', function (evt) {
+    giveAriaPressedChange(evt);
+    if (window.settings.isActivationEvent(evt)) {
+      window.getColorElement(evt.currentTarget,
+          colorsEyes,
+          'fill',
+          giveColorAndProperty(evt));
+    }
+  });
+
+  wizardEyes.addEventListener('click', function (evt) {
+    giveAriaPressedChange(evt);
+    window.getColorElement(evt.currentTarget,
+        colorsEyes,
+        'fill',
+        giveColorAndProperty(evt));
+  });
 })();
