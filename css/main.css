@@ -453,27 +453,39 @@ footer p {
 }
 
 .review-mark-label {
-  background: none;
-  color: #ffffff;
-  cursor: pointer;
+  position: absolute;
+
+  width: 40px;
   height: 30px;
   margin: 0 10px;
-  position: absolute;
+
+  color: #ffffff;
   text-indent: -100em;
-  width: 40px;
+
+  background: none;
+  cursor: pointer;
 }
 
-.review-mark-label-1 { width: 40px; }
-.review-mark-label-2 { width: 80px; }
-.review-mark-label-3 { width: 120px; }
-.review-mark-label-4 { width: 160px; }
+.review-mark-label-1 {
+  width: 40px;
+}
+.review-mark-label-2 {
+  width: 80px;
+}
+.review-mark-label-3 {
+  width: 120px;
+}
+.review-mark-label-4 {
+  width: 160px;
+}
 .review-mark-label-5 {
-  background: url('../img/icon-star-inactive-form.png') repeat-x;
   width: 200px;
+
+  background: url("../img/icon-star-inactive-form.png") repeat-x;
 }
 
 input[type=radio]:checked + .review-mark-label {
-  background: url('../img/icon-star.png') repeat-x;
+  background: url("../img/icon-star.png") repeat-x;
 }
 
 .review-form-label {
@@ -540,32 +552,30 @@ input[type=radio]:checked + .review-mark-label {
 }
 
 .setup {
-  width: 800px;
-  height: 600px;
-
-  position: fixed;
-  left: 50%;
+  position: absolute;
   top: 100px;
-  transform: translateX(-50%);
+  left: 50%;
+  z-index: 3;
 
+  box-sizing: border-box;
+  width: 800px;
+  height: 750px;
   padding: 20px;
 
-  background: #fff;
-  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.25);
-  box-sizing: border-box;
-  color: #000;
+  color: #000000;
 
-  z-index: 3;
+  background: #ffffff;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.25);
+  transform: translateX(-50%);
 }
 
 .setup-open-icon {
   position: absolute;
   top: 100px;
   right: 100px;
+  z-index: 2;
 
   cursor: pointer;
-
-  z-index: 2;
 }
 
 .setup-open-icon:hover {
@@ -574,31 +584,31 @@ input[type=radio]:checked + .review-mark-label {
 
 .setup-open-icon,
 .setup-user-pic {
+  display: inline-block;
   width: 40px;
   height: 40px;
-
-  display: inline-block;
-
-  margin-right: 5px;
   margin-top: -10px;
-  border-radius: 40px;
+  margin-right: 5px;
   overflow: hidden;
+
   vertical-align: middle;
+
+  border-radius: 40px;
 }
 
 .setup-user-name {
+  width: 300px;
+
+  font-weight: 900;
+  font-size: 30px;
+  font-family: "PT Mono";
+
   background: transparent;
   border: 0;
-
-  font-family: 'PT Mono';
-  font-size: 30px;
-  font-weight: 900;
-
-  width: 300px;
 }
 
 .setup-user-name:focus {
-  border-bottom: solid 1px #000;
+  border-bottom: solid 1px #000000;
   outline: none;
 }
 
@@ -608,27 +618,27 @@ input[type=radio]:checked + .review-mark-label {
   right: 20px;
 
   font-size: 70px;
-  color: #000;
-  cursor: pointer;
+  color: #000000;
 
   transform: translateY(-0.3em);
+  cursor: pointer;
 }
 
 .setup-wizard {
+  position: absolute;
+  bottom: 320px;
+  left: 50px;
+
   width: 250px;
   height: 250px;
-
-  position: absolute;
-  bottom: 150px;
-  left: 50px;
 
   border-bottom: solid 15px #1cb34d;
 }
 
 .setup-fireball-wrap {
   position: absolute;
-  left: 300px;
   top: 130px;
+  left: 300px;
 
   width: 75px;
   height: 75px;
@@ -637,33 +647,32 @@ input[type=radio]:checked + .review-mark-label {
 }
 
 .setup-fireball {
-  background: url('../img/fireball-mask.png');
-  background-size: 75px 75px;
   width: 75px;
   height: 75px;
+
+  background: url("../img/fireball-mask.png");
+  background-size: 75px 75px;
 }
 
 .setup-artifacts {
   position: absolute;
-  bottom: 170px;
+  bottom: 340px;
   left: 460px;
 
   display: flex;
   flex-wrap: wrap;
-
   width: 260px;
   height: 260px;
 }
 
 .setup-artifacts-cell {
+  box-sizing: border-box;
   width: 65px;
   height: 65px;
 
   background: rgba(0, 0, 0, 0.1);
   border: solid 1px rgba(255, 255, 255, 0.5);
-  border-right-width: 0px;
-
-  box-sizing: border-box;
+  border-right-width: 0;
 }
 
 .setup-artifacts-cell:last-child {
@@ -672,13 +681,13 @@ input[type=radio]:checked + .review-mark-label {
 
 .setup-submit {
   position: absolute;
+  bottom: 220px;
   left: 50%;
-  bottom: 30px;
 
-  transform: translateX(-50%);
+  color: #ffffff;
 
   background: #da641a;
-  color: #fff;
+  transform: translateX(-50%);
 }
 
 .setup-submit:disabled {
@@ -715,9 +724,8 @@ input[type=radio]:checked + .review-mark-label {
   min-width: 300px;
   min-height: 300px;
 
-  vertical-align: middle;
-
   font-size: 0;
+  vertical-align: middle;
 
   border: dotted 1px rgba(255, 255, 255, 0.2);
 }
@@ -731,3 +739,33 @@ input[type=radio]:checked + .review-mark-label {
   font-size: 14px;
   color: #ffffff;
 }
+
+.setup-similar {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 800px;
+  height: 150px;
+  padding: 20px;
+}
+
+.setup-similar div {
+  box-sizing: border-box;
+  width: 20%;
+  padding: 0 20px;
+}
+.setup-artifacts-shop {
+   position: absolute;
+   top: 60px;
+   left: 200px;
+
+   display: flex;
+   flex-wrap: wrap;
+
+   width: 665px;
+   height: 65px;
+ }

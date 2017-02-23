@@ -457,7 +457,7 @@ window.Game = (function () {
           message = 'Игра на паузе!\nНажмите Пробел, чтобы продолжить';
           break;
         case Verdict.INTRO:
-          message = 'Добро пожаловать!\nНажмите Пробел для начала игры';
+          message = 'Добро пожаловать!\nНажмите Пробел для начала игры\nЧтобы стрелять нажмите shift';
           break;
       }
 
@@ -502,9 +502,9 @@ window.Game = (function () {
         ctx.beginPath();
         ctx.moveTo(x, y);
         ctx.lineTo(x + offset, y + heigth / 2);
-        ctx.lineTo(x, y + heigth);
+        ctx.lineTo(x, y + heigth * 1.1);
         ctx.lineTo(x + width / 2, y + heigth - offset);
-        ctx.lineTo(x + width, y + heigth);
+        ctx.lineTo(x + width, y + heigth * 1.1);
         ctx.lineTo(x + width - offset, y + heigth / 2);
         ctx.lineTo(x + width, y);
         ctx.lineTo(x + width / 2, y + offset);
@@ -523,7 +523,7 @@ window.Game = (function () {
       ctx.fillStyle = '#000';
       ctx.font = '16px PT Mono';
       message.split('\n').forEach(function (line, i) {
-        ctx.fillText(line, 200, 80 + 20 * i);
+        ctx.fillText(line, 200, 60 + 20 * i);
       });
     },
 
