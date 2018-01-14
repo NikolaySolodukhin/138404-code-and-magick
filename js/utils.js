@@ -56,7 +56,7 @@ window.settings = (function () {
       }
     },
 
-        // функция для замены id на классы и удаления лишних атрибутов
+    // функция для замены id на классы и удаления лишних атрибутов
     changeIdToClass: function (arr) {
       for (var i = 0; i < arr.length; i++) {
         var item = arr[i].getAttribute('id');

@@ -11,7 +11,7 @@ body {
   font: 20px "PT Mono";
   color: #ffffff;
 
-  background: #da641a;
+  background-color: #da641a;
 }
 
 h1,
@@ -27,7 +27,7 @@ button {
   font: bold 20px "PT Mono";
   line-height: 54px;
 
-  background: #ffffff;
+  background-color: #ffffff;
   border: 0;
 }
 
@@ -59,7 +59,7 @@ header {
 
   text-align: center;
 
-  background: #2b5cfc;
+  background-color: #2b5cfc;
   background: linear-gradient(180deg, #0000ff, #94c6fd);
   border-bottom: solid 8px #1cb34d;
 }
@@ -110,7 +110,7 @@ header {
   z-index: 1;
 
   font-size: 26px;
-  color: #ffffff;
+  color: white;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -138,7 +138,8 @@ header {
 .demo {
   width: 700px;
   height: 300px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 main {
@@ -199,7 +200,7 @@ main {
   font-weight: bold;
   font-size: 22px;
   vertical-align: middle;
-  color: #ffffff;
+  color: white;
 
   border-bottom: dotted 2px #ffffff;
   cursor: pointer;
@@ -216,11 +217,11 @@ input[type=radio]:checked + .reviews-filter-item {
   padding: 0 15px;
 
   line-height: 36px;
-  color: #000000;
+  color: black;
 
-  background: #ffffff;
+  background-color: white;
   border-bottom: solid 2px;
-  box-shadow: 3px 3px 0 #000000;
+  box-shadow: 3px 3px 0 black;
   cursor: auto;
 }
 
@@ -329,7 +330,7 @@ input[type=radio]:checked + .reviews-filter-item {
 }
 
 .review-quiz-answer-active {
-  color: #ffffff;
+  color:white;
   text-decoration: none;
 
   cursor: default;
@@ -354,9 +355,9 @@ input[type=radio]:checked + .reviews-filter-item {
   font-weight: bold;
   font-size: 20px;
   line-height: 55px;
-  color: #000000;
+  color: black;
 
-  background: #ffffff;
+  background-color: white;
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
 }
 
@@ -365,7 +366,7 @@ input[type=radio]:checked + .reviews-filter-item {
 
   font-size: 18px;
   line-height: 36px;
-  color: #000000;
+  color: black;
 
   border: solid 1px;
 }
@@ -374,11 +375,11 @@ footer {
   font-size: 16px;
   line-height: 1.6;
   text-align: center;
-  color: #000000;
+  color: black;
 }
 
 footer a {
-  color: #000000;
+  color: black;
 }
 
 footer p {
@@ -459,7 +460,7 @@ footer p {
   height: 30px;
   margin: 0 10px;
 
-  color: #ffffff;
+  color: white;
   text-indent: -100em;
 
   background: none;
@@ -497,9 +498,9 @@ input[type=radio]:checked + .review-mark-label {
   padding: 5px;
 
   font: 20px/1.5 "PT Mono";
-  color: #000000;
+  color: black;
 
-  background: #ffffff;
+  background-color: white;
   border: 0;
 }
 
@@ -519,7 +520,7 @@ input[type=radio]:checked + .review-mark-label {
 
 .review-fields {
   font-size: 16px;
-  color: #ffffff;
+  color: white;
   color: rgba(255, 255, 255, 0.6);
   white-space: normal;
 }
@@ -535,7 +536,8 @@ input[type=radio]:checked + .review-mark-label {
 
   display: block;
   width: 250px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: 50px;
 }
 
@@ -562,9 +564,9 @@ input[type=radio]:checked + .review-mark-label {
   height: 750px;
   padding: 20px;
 
-  color: #000000;
+  color: black;
 
-  background: #ffffff;
+  background-color: white;
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.25);
   transform: translateX(-50%);
 }
@@ -608,7 +610,7 @@ input[type=radio]:checked + .review-mark-label {
 }
 
 .setup-user-name:focus {
-  border-bottom: solid 1px #000000;
+  border-bottom: solid 1px black;
   outline: none;
 }
 
@@ -618,7 +620,7 @@ input[type=radio]:checked + .review-mark-label {
   right: 20px;
 
   font-size: 70px;
-  color: #000000;
+  color: black;
 
   transform: translateY(-0.3em);
   cursor: pointer;
@@ -684,7 +686,7 @@ input[type=radio]:checked + .review-mark-label {
   bottom: 220px;
   left: 50%;
 
-  color: #ffffff;
+  color: white;
 
   background: #da641a;
   transform: translateX(-50%);
@@ -737,7 +739,7 @@ input[type=radio]:checked + .review-mark-label {
 
   font-weight: bold;
   font-size: 14px;
-  color: #ffffff;
+  color: white;
 }
 
 .setup-similar {
